@@ -24,6 +24,7 @@ public class EnemyAction : MonoBehaviour
     public float x;
     public int ecurrentHealth;
     public int emaxHealth;
+    public GameObject Drops;
     PlayerAction con;
 
     // Start is called before the first frame update
@@ -38,6 +39,10 @@ public class EnemyAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Distence();
+    }
+    void Distence()
+    {
         Position = transform.position.x;
         Dis = Startpos - Position;
         if (Dis <= 0)
@@ -51,9 +56,9 @@ public class EnemyAction : MonoBehaviour
         if (ecurrentHealth == 0)
         {
             Destroy(gameObject);
+            GameObject drop = Instantiate(Drops, transform.position, Quaternion.identity);
         }
     }
-
     void FixedUpdate()
     {
         Move();

@@ -293,6 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295874689}
   - component: {fileID: 295874690}
+  - component: {fileID: 295874691}
   m_Layer: 7
   m_Name: atkArea1
   m_TagString: Untagged
@@ -360,6 +361,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &295874691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295874688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60240c537bdb774f9ca5ceb61cb1417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &569122816
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512192193}
   - component: {fileID: 1512192194}
+  - component: {fileID: 1512192195}
   m_Layer: 7
   m_Name: atkArea2
   m_TagString: Untagged
@@ -720,6 +734,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &1512192195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512192192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60240c537bdb774f9ca5ceb61cb1417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1789493151
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,6 +933,7 @@ MonoBehaviour:
   x: 0
   ecurrentHealth: 5
   emaxHealth: 5
+  Drops: {fileID: 4564551911076203223, guid: f52d240e6fce8204f80831e243192696, type: 3}
 --- !u!1 &2004902063
 GameObject:
   m_ObjectHideFlags: 0
