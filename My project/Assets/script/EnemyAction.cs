@@ -130,8 +130,6 @@ public class EnemyAction : MonoBehaviour
         {
             player.ChangeHealth(-1);
         }
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)
