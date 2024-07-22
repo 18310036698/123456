@@ -416,17 +416,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 569122820}
   speed: 10
-  GroundCheck: {fileID: 2004902064}
-  isground: 0
+  groundCheck: {fileID: 0}
+  isGrounded: 0
   env:
     serializedVersion: 2
     m_Bits: 64
-  jumpcount: 2
+  jumpCount: 0
   gravity: 5
-  fallgravity: 10
-  maxjumptime: 1
-  jumptime: 0
-  jumpforce: 17
+  fallGravity: 0
+  maxJumptime: 0
+  jumpTime: 0
+  jumpForce: 0
+  speedx: 0
 --- !u!1 &1134483288
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +532,7 @@ GameObject:
   - component: {fileID: 1789493154}
   - component: {fileID: 1789493153}
   - component: {fileID: 1789493152}
+  - component: {fileID: 1789493156}
   m_Layer: 6
   m_Name: "\u654C\u4EBA"
   m_TagString: Untagged
@@ -667,6 +669,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789493156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789493151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f62a8bd0200ae4bb45e1eef38f47b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2004902063
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2004902064}
   m_Layer: 6
-  m_Name: GroundCheck
+  m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
