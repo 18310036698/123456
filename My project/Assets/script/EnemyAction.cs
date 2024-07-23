@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAction : MonoBehaviour
@@ -14,7 +15,6 @@ public class EnemyAction : MonoBehaviour
     bool Spot_Player;
     public LayerMask player;
     public Transform Visibility;
-    public GameObject player_character;
     public float Coefficient;
     public bool spot;
     public Rigidbody2D rbe;
@@ -24,8 +24,8 @@ public class EnemyAction : MonoBehaviour
     public float x;
     public int ecurrentHealth;
     public int emaxHealth;
+    public int eatk;
     public GameObject Drops;
-    PlayerAction con;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class EnemyAction : MonoBehaviour
         Startpos = transform.position.x;
         rbe = GetComponent<Rigidbody2D>();
         ecurrentHealth = emaxHealth;
-        con = GetComponent<PlayerAction>();
+        player_position = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -133,15 +133,36 @@ public class EnemyAction : MonoBehaviour
 
         if (player != null)
         {
-            player.ChangeHealth(-1);
+            bool hurt;
+            player.ChangeHealth(-1 * eatk);
+            if (enemy_position.transform.position.x < player_position.transform.position.x)
+            {
+                hurt = true;
+            }
+            else 
+            {
+                hurt = false;
+            }
+            player.Hurt(hurt);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.gameObject.layer == LayerMask.NameToLayer("hitbox"))
         {
-            eChangeHealth(-1);
+            PlayerAction player = other.transform.parent.gameObject.GetComponent<PlayerAction>();
+            rbe.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+            if (enemy_position.transform.position.x < player_position.transform.position.x)
+            {
+                rbe.AddForce(Vector2.left * player.atkForce, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rbe.AddForce(Vector2.right * player.atkForce, ForceMode2D.Impulse);
+            }
+            eChangeHealth(-1 * player.atk);
         }
     }
 
@@ -150,5 +171,4 @@ public class EnemyAction : MonoBehaviour
         ecurrentHealth = Mathf.Clamp(ecurrentHealth + amount, 0, emaxHealth);
         Debug.Log("Enemy" + ecurrentHealth + "/" + emaxHealth);
     }
-
 }

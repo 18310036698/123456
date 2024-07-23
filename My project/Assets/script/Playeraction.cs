@@ -6,6 +6,7 @@ public class PlayerAction : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed;
+    public float speedLimit;
     public Transform groundCheck;
     [SerializeField]private bool isGrounded;
     public LayerMask env;
@@ -26,6 +27,9 @@ public class PlayerAction : MonoBehaviour
     public int maxHealth;
     public float timeInvincible = 2.0f, timeAtkable = 1.0f;
     float invincibleTimer;
+    public float hurtForce;
+    public int atk;
+    public int atkForce;
     public int health { get { return currentHealth; } }
     // Start is called before the first frame update
     void Start()
@@ -42,14 +46,24 @@ public class PlayerAction : MonoBehaviour
         Jump();
         Attack();
         Invincible();
+        Dig();
+
+        //Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Color.red);
     }
     void FixedUpdate()
     {
-        //通过增加速度来实现横向移动
-        float horizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        Move();
         //实现地面检测
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, env);
+    }
+    void Move()
+    {
+        //通过增加速度来实现横向移动
+        float horizontal = Input.GetAxis("Horizontal");
+        if (rb.velocity.x < speedLimit && rb.velocity.x > speedLimit * -1) 
+        {
+            rb.velocity = new Vector2(horizontal * speed + rb.velocity.x, rb.velocity.y);
+        }
     }
     void Jump()
     {
@@ -97,12 +111,12 @@ public class PlayerAction : MonoBehaviour
     }
     bool Face()
     {
-        speedx = rb.velocity.x;
-        if (speedx > 0)
+        float horizontal = Input.GetAxis("Horizontal");
+        if (horizontal > 0)
         {
             face = true;
         }
-        else if (speedx < 0)
+        else if (horizontal < 0)
         {
             face = false;
         }
@@ -151,6 +165,19 @@ public class PlayerAction : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log("Player:" + currentHealth + "/" + maxHealth);
     }
+    public void Hurt(bool hurt)
+    {
+        if (hurt)
+        {
+            rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.right * hurtForce, ForceMode2D.Impulse);
+        }
+        else 
+        {
+            rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.left * hurtForce, ForceMode2D.Impulse);
+        }
+    }
     void Invincible()
     {
         if (isInvincible)
@@ -160,4 +187,21 @@ public class PlayerAction : MonoBehaviour
                 isInvincible = false;
         }
     }
+    void Dig() 
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 3);
+            if (hit.collider != null)
+            {
+                if (hit.collider.tag == "can dig" && Mathf.Abs(hit.transform.position.x - transform.position.x) < 3)
+                {
+                    ResourceAction resourceAction = hit.collider.gameObject.GetComponent<ResourceAction>();
+                    resourceAction.beDestroy();
+                    Debug.Log("射线检测：" + hit.collider.name);
+                }
+            }
+        }
+    }
 }
+
