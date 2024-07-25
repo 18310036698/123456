@@ -5,9 +5,9 @@ using UnityEngine;
 public class CreateMap : MonoBehaviour
 {
     public GameObject tilePrefab; // 你的格子预制体
-    public int rows = 90; // 行数
-    public int cols = 9; // 列数
-    public float spacing = 0f; // 格子之间的间距
+    public int rows = 5; // 行数
+    public int cols = 10; // 列数
+    public float spacing = 0.2f; // 格子之间的间距
 
     void Start()
     {
@@ -26,5 +26,4 @@ public class CreateMap : MonoBehaviour
             }
         }
     }
-
 }

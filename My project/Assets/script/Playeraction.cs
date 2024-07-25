@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerAction : MonoBehaviour
 {
@@ -30,6 +32,9 @@ public class PlayerAction : MonoBehaviour
     public float hurtForce;
     public int atk;
     public int atkForce;
+    bool isOpen = false;
+    [SerializeField] GameObject bag;
+    public InputAction openbag;
     public int health { get { return currentHealth; } }
     // Start is called before the first frame update
     void Start()
@@ -38,6 +43,7 @@ public class PlayerAction : MonoBehaviour
         currentHealth = maxHealth;
         atkArea1.SetActive(false);
         atkArea2.SetActive(false);
+        bag.SetActive(isOpen);
     }
 
     // Update is called once per frame
@@ -47,7 +53,7 @@ public class PlayerAction : MonoBehaviour
         Attack();
         Invincible();
         Dig();
-
+        OpenBag();
         //Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Color.red);
     }
     void FixedUpdate()
@@ -60,7 +66,7 @@ public class PlayerAction : MonoBehaviour
     {
         //通过增加速度来实现横向移动
         float horizontal = Input.GetAxis("Horizontal");
-        if (rb.velocity.x < speedLimit && rb.velocity.x > speedLimit * -1) 
+        if (rb.velocity.x < speedLimit && rb.velocity.x > -speedLimit) 
         {
             rb.velocity = new Vector2(horizontal * speed + rb.velocity.x, rb.velocity.y);
         }
@@ -201,6 +207,14 @@ public class PlayerAction : MonoBehaviour
                     Debug.Log("射线检测：" + hit.collider.name);
                 }
             }
+        }
+    }
+    public void OpenBag()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isOpen = !isOpen;   //赋反值
+            bag.SetActive(isOpen);
         }
     }
 }
