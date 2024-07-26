@@ -16,6 +16,11 @@ public class ScenesManager : Singleton<ScenesManager>
     private bool isFade; // 判断是否淡出
     private float duration = 0.5f; // 淡出持续时间
 
+    private void Start()
+    {
+        SceneManager.LoadScene("WorldMap", LoadSceneMode.Additive);
+    }
+
     /// <summary>
     /// 场景转换
     /// </summary>

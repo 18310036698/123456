@@ -9,7 +9,6 @@ public class ItemOnPointer : MonoBehaviour, IPointerEnterHandler, IPointerMoveHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("1");
         Description.SetActive(true);
     }
     public void OnPointerMove(PointerEventData eventData)

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -14,7 +13,11 @@ public class CursorManager : MonoBehaviour
     // 判断是否可以点击
     private bool canClick;
 
+    private bool inWorldmap = true;
+
     public GameObject canvas;
+
+    public GameObject worldmapSencetransform;
 
     private void Update()
     {
@@ -27,6 +30,15 @@ public class CursorManager : MonoBehaviour
                 // 执行鼠标碰撞处理函数
                 ClickAction(MouseCollider().gameObject); // MouseCollider().gameObject 函数返回的碰撞体
             }
+            
+            if (Input.GetButtonDown("Jump") && inWorldmap)
+            {
+                //从世界地图玩家控制脚本获取玩家所在格子信息
+                TileData tileData = FindObjectOfType<WorldMapPlayerAction>().tiledata;
+                KeyBoardAction(tileData);
+                inWorldmap = false;
+            }
+            
         }
 
     }
@@ -59,9 +71,41 @@ public class CursorManager : MonoBehaviour
                 canvas.SetActive(true);
                 scene.MoveScene();
                 //canvas.SetActive(false);
+                inWorldmap = true;
                 break;
         }
     }
 
-
+    private void KeyBoardAction(TileData tiledata) 
+    {
+        worldmapSencetransform.GetComponent<SceneTransition>().currentScene = SceneEnums.WorldMap;
+        if (tiledata.terraintype == TileTerrain.grass) 
+        {
+            worldmapSencetransform.GetComponent<SceneTransition>().targetScene = SceneEnums.Area1;
+            var scene = worldmapSencetransform.GetComponent<SceneTransition>();
+            canvas.SetActive(true);
+            scene.MoveScene();
+        }
+        else if(tiledata.terraintype == TileTerrain.dirt)
+        {
+            worldmapSencetransform.GetComponent<SceneTransition>().targetScene = SceneEnums.Area2;
+            var scene = worldmapSencetransform.GetComponent<SceneTransition>();
+            canvas.SetActive(true);
+            scene.MoveScene();
+        }
+        else if (tiledata.terraintype == TileTerrain.mountain)
+        {
+            worldmapSencetransform.GetComponent<SceneTransition>().targetScene = SceneEnums.Area3;
+            var scene = worldmapSencetransform.GetComponent<SceneTransition>();
+            canvas.SetActive(true);
+            scene.MoveScene();
+        }
+        else if (tiledata.terraintype == TileTerrain.sea)
+        {
+            worldmapSencetransform.GetComponent<SceneTransition>().targetScene = SceneEnums.Area4;
+            var scene = worldmapSencetransform.GetComponent<SceneTransition>();
+            canvas.SetActive(true);
+            scene.MoveScene();
+        }
+    }
 }
