@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 掉落物行为
+/// </summary>
 public class DropAction : MonoBehaviour
 {
     //物品数据和要保存到的物品仓库

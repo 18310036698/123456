@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/// <summary>
+/// 控制区域中敌人行为
+/// </summary>
 public class EnemyAction : MonoBehaviour
 {
     float Startpos;

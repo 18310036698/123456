@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+/// <summary>
+/// 当鼠标放在背包的某个物品上时显示物品描述
+/// </summary>
 public class ItemOnPointer : MonoBehaviour, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler
 {
     public GameObject Description;

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 资源点行为
+/// </summary>
 public class ResourceAction : MonoBehaviour
 {
     public GameObject Drops;

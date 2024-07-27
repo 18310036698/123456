@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 世界地图玩家行为控制
+/// </summary>
 public class WorldMapPlayerAction : MonoBehaviour
 {
     public float coolDownTimer;

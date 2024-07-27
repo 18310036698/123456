@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+/// <summary>
+/// 物品数据存在slot里，slot显示在背包的背景图上面
+/// </summary>
 public class Slot : MonoBehaviour
 {
     public int slotID;      //格子的编号

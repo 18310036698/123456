@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 添加新物品（信息）的菜单
+/// 决定一个Item存什么信息
+/// </summary>
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/New Item")]
 public class Item : ScriptableObject
 {

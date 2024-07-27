@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+/// <summary>
+/// 开始时在字典中录入世界地图瓦片类型与坐标
+/// </summary>
 public class WorldMap : MonoBehaviour
 {
     public Dictionary<Vector2Int, TileData> dict = new Dictionary<Vector2Int, TileData>();

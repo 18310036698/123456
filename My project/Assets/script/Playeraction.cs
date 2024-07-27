@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+/// <summary>
+/// 控制区域中玩家行为
+/// </summary>
 public class PlayerAction : MonoBehaviour
 {
     public Rigidbody2D rb;

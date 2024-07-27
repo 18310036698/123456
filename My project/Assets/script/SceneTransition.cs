@@ -1,5 +1,9 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+/// <summary>
+/// 举例场景
+/// 选择转换场景
+/// </summary>
 public enum SceneEnums
 {
     Area1,Area2,Area3,Area4,WorldMap

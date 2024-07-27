@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+/// <summary>
+/// 举例地形类型
+/// 决定瓦片存什么信息
+/// </summary>
 public enum TileTerrain
 {
     sea,

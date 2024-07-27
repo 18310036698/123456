@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 测试脚本，用来代替tilemap生成网格地图
+/// </summary>
 public class CreateMap : MonoBehaviour
 {
     public GameObject tilePrefab; // 你的格子预制体
