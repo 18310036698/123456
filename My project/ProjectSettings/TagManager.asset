@@ -6,6 +6,8 @@ TagManager:
   tags:
   - can dig
   - Scene
+  - Slot
+  - Item
   layers:
   - Default
   - TransparentFX
