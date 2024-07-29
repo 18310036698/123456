@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacc8e253ca4ba049b25ed753d33f369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalParent: {fileID: 0}
+  originalParent: {fileID: 3016637166610942305}
   mainInventory: {fileID: 11400000, guid: 2ebe00cee35764a40abee7d9a7fe1aca, type: 2}
 --- !u!114 &3252194375364707003
 MonoBehaviour:
