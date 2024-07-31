@@ -6,7 +6,11 @@ public class ItemOnDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 {
     public Transform originalParent;    //记录起始的父级位置
     public Inventory mainInventory;
+    public Inventory toolbarInventory;
+    Inventory inventory1;
+    Inventory inventory2;
     private int curItemID;
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -33,16 +37,38 @@ public class ItemOnDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         //当拖拽终点格子有物品时，交换两个物品的位置
         if (itemOnRaycast != null)
         {
-            if (itemOnRaycast.CompareTag("Item"))
+            if (itemOnRaycast.CompareTag("Item") || itemOnRaycast.CompareTag("Tool Bar Item"))
             {
                 //改变父级和位置
                 transform.SetParent(itemTransOnRaycast.parent);     //itemTransOnRaycast.parent就是格子
                 transform.position = itemTransOnRaycast.parent.position;
 
+                //判断inventory种类
+                if (itemOnRaycast.CompareTag("Item") && CompareTag("Item"))
+                {
+                    inventory1 = mainInventory;
+                    inventory2 = mainInventory;
+                }
+                else if (itemOnRaycast.CompareTag("Tool Bar Item") && CompareTag("Item"))
+                {
+                    inventory1 = mainInventory;
+                    inventory2 = toolbarInventory;
+                }
+                else if (itemOnRaycast.CompareTag("Item") && CompareTag("Tool Bar Item"))
+                {
+                    inventory1 = toolbarInventory;
+                    inventory2 = mainInventory;
+                }
+                else if (itemOnRaycast.CompareTag("Tool Bar Item") && CompareTag("Tool Bar Item"))
+                {
+                    inventory1 = toolbarInventory;
+                    inventory2 = toolbarInventory;
+                }
+                
                 //刷新itemList的物品存储位置
-                var temp = mainInventory.itemList[curItemID];
-                mainInventory.itemList[curItemID] = mainInventory.itemList[itemOnRaycast.GetComponentInParent<Slot>().slotID];
-                mainInventory.itemList[itemOnRaycast.GetComponentInParent<Slot>().slotID] = temp;
+                var temp = inventory1.itemList[curItemID];
+                inventory1.itemList[curItemID] = inventory2.itemList[itemOnRaycast.GetComponentInParent<Slot>().slotID];
+                inventory2.itemList[itemOnRaycast.GetComponentInParent<Slot>().slotID] = temp;
 
                 itemTransOnRaycast.position = originalParent.position;
                 itemTransOnRaycast.SetParent(originalParent);
@@ -52,19 +78,44 @@ public class ItemOnDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             }
 
             //没有物品时射线射到的是个格子，直接赋值给这个格子
-            else if (itemOnRaycast.CompareTag("Slot"))
+            else if (itemOnRaycast.CompareTag("Slot") || itemOnRaycast.CompareTag("Tool Bar Slot"))
             {
                 transform.SetParent(itemTransOnRaycast);
                 transform.position = itemTransOnRaycast.position;
+
+                //判断
+                if (itemOnRaycast.CompareTag("Slot") && CompareTag("Item"))
+                {
+                    inventory1 = mainInventory;
+                    inventory2 = mainInventory;
+                }
+                else if (itemOnRaycast.CompareTag("Tool Bar Slot") && CompareTag("Item"))
+                {
+                    inventory1 = mainInventory;
+                    inventory2 = toolbarInventory;
+                    itemTransOnRaycast.Find("Item").tag = "Item";
+                    tag = "Tool Bar Item";
+                }
+                else if (itemOnRaycast.CompareTag("Slot") && CompareTag("Tool Bar Item"))
+                {
+                    inventory1 = toolbarInventory;
+                    inventory2 = mainInventory;
+                    itemTransOnRaycast.Find("Item").tag = "Tool Bar Item";
+                    tag = "Item";
+                }
+                else if (itemOnRaycast.CompareTag("Tool Bar Slot") && CompareTag("Tool Bar Item"))
+                {
+                    inventory1 = toolbarInventory;
+                    inventory2 = toolbarInventory;
+                }
+
                 //空格子的位置也得换
                 itemTransOnRaycast.Find("Item").position = originalParent.position;
                 itemTransOnRaycast.Find("Item").SetParent(originalParent);
-
-
-                mainInventory.itemList[itemOnRaycast.GetComponent<Slot>().slotID] = mainInventory.itemList[curItemID];
+                inventory2.itemList[itemOnRaycast.GetComponent<Slot>().slotID] = inventory1.itemList[curItemID];
                 //变位置了的话就将原来的改为空
-                if (itemOnRaycast.GetComponent<Slot>().slotID != curItemID)
-                    mainInventory.itemList[curItemID] = null;
+                if (itemOnRaycast.GetComponent<Slot>().slotID != curItemID || inventory1 != inventory2)
+                    inventory1.itemList[curItemID] = null;
 
                 GetComponent<CanvasGroup>().blocksRaycasts = true;
                 return;

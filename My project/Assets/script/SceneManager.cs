@@ -15,6 +15,7 @@ public class ScenesManager : Singleton<ScenesManager>
 
     private bool isFade; // 判断是否淡出
     private float duration = 0.5f; // 淡出持续时间
+    public GameObject canvas;
 
     private void Start()
     {
@@ -56,6 +57,7 @@ public class ScenesManager : Singleton<ScenesManager>
         SceneManager.SetActiveScene(newScene);
         // 结束淡出
         yield return FadeAction(0);
+        canvas.SetActive(false);
     }
 
     /// <summary>

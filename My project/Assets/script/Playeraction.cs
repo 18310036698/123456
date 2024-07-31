@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 /// <summary>
 /// 控制区域中玩家行为
@@ -36,6 +37,11 @@ public class PlayerAction : MonoBehaviour
     bool isOpen = false;
     [SerializeField] GameObject bag;
     public InputAction openbag;
+    GameObject objectSlot = null;
+    GameObject toolbarSlot = null;
+    ItemSelect lastitemSelect = null;
+    ItemInHand lastiteminhand = null;
+    public Slot iteminhand;
     public int health { get { return currentHealth; } }
     // Start is called before the first frame update
     void Start()
@@ -55,6 +61,8 @@ public class PlayerAction : MonoBehaviour
         Invincible();
         Dig();
         OpenBag();
+        SelectItem();
+        ItemHandel();
         //Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Color.red);
     }
     void FixedUpdate()
@@ -208,6 +216,103 @@ public class PlayerAction : MonoBehaviour
                     Debug.Log("射线检测：" + hit.collider.name);
                 }
             }
+        }
+    }
+    void SelectItem()
+    {
+        if (Input.GetMouseButtonDown(0) && IsOnSlot(Input.mousePosition))
+        {
+            Slot slot = objectSlot.GetComponent<Slot>();
+            if (slot.itemInSlot != null && lastitemSelect != slot.itemInSlot.GetComponent<ItemSelect>())
+            {
+                ItemSelect itemSelect = slot.itemInSlot.GetComponent<ItemSelect>();
+                itemSelect.BeSelect();
+                if (lastitemSelect != null)
+                {
+                    lastitemSelect.CancelSelect();
+                }
+                lastitemSelect = slot.itemInSlot.GetComponent<ItemSelect>();
+            }
+        }
+    }
+    void ItemHandel()
+    {
+        if (Input.GetMouseButtonDown(0) && IsOnToolBar(Input.mousePosition))
+        {
+            Slot slot = toolbarSlot.GetComponent<Slot>();
+            iteminhand = slot;
+            if (slot.itemInSlot != null && lastiteminhand != slot.itemInSlot.GetComponent<ItemInHand>())
+            {
+                ItemInHand iteminhand = slot.itemInSlot.GetComponent<ItemInHand>();
+                iteminhand.BeSelect();
+                if (lastiteminhand != null)
+                {
+                    lastiteminhand.CancelSelect();
+                }
+                lastiteminhand = slot.itemInSlot.GetComponent<ItemInHand>();
+            }
+        }
+    }
+    bool IsOnSlot(Vector2 pos)
+    {
+        //通过当前场景中活跃的EventSystem实例，获取输入事件的数据
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        //设置检测的点坐标
+        pointerData.position = pos;
+        //检测到的对象列表
+        List<RaycastResult> results = new List<RaycastResult>();
+        //传入的点坐标检测到的所有物体填充到列表
+        EventSystem.current.RaycastAll(pointerData, results);
+        //如果没检测到任何物体则返回false
+        if (results.Count < 1) return false;
+        else
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                //检测到了的物体的tag为Slot，则代表检测到了Slot，返回true
+                if (results[i].gameObject.tag == "Slot")
+                {
+                    objectSlot = results[i].gameObject;
+                    return true;
+                }
+                else if (results[i].gameObject.tag == "bottom of UI")
+                {
+                    break;
+                }
+            }
+            //反之检测不是Slot,返回false
+            return false;
+        }
+    }
+    bool IsOnToolBar(Vector2 pos)
+    {
+        //通过当前场景中活跃的EventSystem实例，获取输入事件的数据
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        //设置检测的点坐标
+        pointerData.position = pos;
+        //检测到的对象列表
+        List<RaycastResult> results = new List<RaycastResult>();
+        //传入的点坐标检测到的所有物体填充到列表
+        EventSystem.current.RaycastAll(pointerData, results);
+        //如果没检测到任何物体则返回false
+        if (results.Count < 1) return false;
+        else
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                //检测到了的物体的tag为Slot，则代表检测到了Slot，返回true
+                if (results[i].gameObject.tag == "Tool Bar Slot")
+                {
+                    toolbarSlot = results[i].gameObject;
+                    return true;
+                }
+                else if (results[i].gameObject.tag == "bottom of UI")
+                {
+                    break;
+                }
+            }
+            //反之检测不是Slot,返回false
+            return false;
         }
     }
     public void OpenBag()

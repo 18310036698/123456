@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1238251175}
+  canvas: {fileID: 864020269}
 --- !u!4 &2050985933
 Transform:
   m_ObjectHideFlags: 0

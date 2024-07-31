@@ -16,6 +16,7 @@ public class Slot : MonoBehaviour
     public Text DescriptionText;
 
     public GameObject itemInSlot;
+    public GameObject caseOfSlot;
     //生成格子的数据
     public void SetupSlot(Item item)
     {

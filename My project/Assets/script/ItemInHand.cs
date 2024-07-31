@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemSelect : MonoBehaviour
+public class ItemInHand : MonoBehaviour
 {
     public Slot slotSelected;     //被框住的格子
     public Inventory inventory; //在哪个物品栏选

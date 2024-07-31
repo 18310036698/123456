@@ -8,6 +8,9 @@ TagManager:
   - Scene
   - Slot
   - Item
+  - bottom of UI
+  - Tool Bar Slot
+  - Tool Bar Item
   layers:
   - Default
   - TransparentFX

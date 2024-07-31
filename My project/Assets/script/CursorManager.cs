@@ -70,7 +70,6 @@ public class CursorManager : MonoBehaviour
                 // Ö´ÐÐº¯Êý
                 canvas.SetActive(true);
                 scene.MoveScene();
-                //canvas.SetActive(false);
                 inWorldmap = true;
                 break;
         }
