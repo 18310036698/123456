@@ -19,7 +19,7 @@ public class ScenesManager : Singleton<ScenesManager>
 
     private void Start()
     {
-        SceneManager.LoadScene("WorldMap", LoadSceneMode.Additive);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
     }
 
     /// <summary>

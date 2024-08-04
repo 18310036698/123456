@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public enum SceneEnums
 {
-    Area1,Area2,Area3,Area4,WorldMap
+    Area1,Area2,Area3,Area4,WorldMap,MainMenu
 }
 public class SceneTransition : MonoBehaviour
 {
