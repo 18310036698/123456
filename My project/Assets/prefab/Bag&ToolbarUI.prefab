@@ -2432,7 +2432,7 @@ GameObject:
   - component: {fileID: 1733218473393665916}
   m_Layer: 5
   m_Name: Bag&ToolbarUI
-  m_TagString: Untagged
+  m_TagString: bottom of UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -11,6 +11,7 @@ TagManager:
   - bottom of UI
   - Tool Bar Slot
   - Tool Bar Item
+  - resume
   layers:
   - Default
   - TransparentFX
